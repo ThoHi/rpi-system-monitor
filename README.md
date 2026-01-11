@@ -2,7 +2,7 @@
 
 A simple, lightweight web application to monitor the CPU usage, memory usage, CPU temperature, and network traffic of a Raspberry Pi in real-time using a clean, dial-based interface.
 
-![Screenshot](rpi web app.png) <!-- Placeholder for a screenshot -->
+![Screenshot](<rpi web app.png>) <!-- Placeholder for a screenshot -->
 
 ## Features
 
