@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RPI Monitor</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background-color: #f0f2f5;
+            color: #333;
+            margin: 0;
+            padding: 1rem;
+        }
+
+        h1 {
+            text-align: center;
+            color: #1a2b4d;
+            margin-bottom: 2rem;
+        }
+
+        .container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .indicator-container {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.2s ease-in-out;
+            min-height: 250px; /* Ensure consistent height */
+        }
+
+        .indicator-container:hover {
+            transform: translateY(-5px);
+        }
+
+        h2 {
+            text-align: center;
+            margin-top: 0;
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+            color: #555;
+        }
+
+        .gauge {
+            width: 100%; /* JustGage takes care of size */
+            height: 150px;
+        }
+
+        .numeric-display {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #1a2b4d;
+            margin-top: 0.5rem;
+        }
+        .network-display {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #1a2b4d;
+            margin-top: 0.5rem;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <h1>RPi System Monitor</h1>
+    <div class="container">
+        <div class="indicator-container">
+            <h2>CPU Usage</h2>
+            <div id="cpuGauge" class="gauge"></div>
+            <span id="cpuNumeric" class="numeric-display">--</span>
+        </div>
+        <div class="indicator-container">
+            <h2>Memory Usage</h2>
+            <div id="memGauge" class="gauge"></div>
+            <span id="memNumeric" class="numeric-display">--</span>
+        </div>
+        <div class="indicator-container">
+            <h2>CPU Temperature</h2>
+            <div id="tempGauge" class="gauge"></div>
+            <span id="tempNumeric" class="numeric-display">--</span>
+        </div>
+        <div class="indicator-container">
+            <h2>Network I/O (KB/s)</h2>
+            <div class="network-display">
+                TX: <span id="netTxNumeric">--</span><br>
+                RX: <span id="netRxNumeric">--</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- JustGage dependencies -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.3.0/raphael.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/justgage/1.5.0/justgage.min.js"></script>
+    
+    <script src="/static/app.js"></script>
+</body>
+</html>
