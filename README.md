@@ -45,6 +45,66 @@ A simple, lightweight web application to monitor the CPU usage, memory usage, CP
 
     Replace `<YOUR_RPI_IP_ADDRESS>` with the actual IP address of your Raspberry Pi (you can find it by running `hostname -I`).
 
+## Running as a Service (systemd)
+
+To ensure the application starts automatically on boot and runs continuously in the background, you can set it up as a `systemd` service.
+
+1.  **Create a Service File:**
+
+    Use a text editor with `sudo` to create a service file in the system directory:
+    ```bash
+    sudo nano /etc/systemd/system/rpi-monitor.service
+    ```
+
+2.  **Add the Service Configuration:**
+
+    Copy and paste the following content into the editor:
+    ```ini
+    [Unit]
+    Description=RPi System Monitor
+    After=network-online.target
+    Wants=network-online.target
+
+    [Service]
+    ExecStart=/path/to/your/project/.venv/bin/python /path/to/your/project/main.py
+    WorkingDirectory=/path/to/your/project
+    StandardOutput=inherit
+    StandardError=inherit
+    Restart=always
+    User=your_user
+
+    [Install]
+    WantedBy=multi-user.target
+    ```
+
+    **Important:** You must replace the placeholder values:
+    *   Replace `/path/to/your/project` with the **absolute path** to the project's root directory.
+    *   Replace `your_user` with your username (the user that owns the project files).
+
+    Save the file and exit the editor (in `nano`, press `Ctrl+X`, then `Y`, then `Enter`).
+
+3.  **Enable and Start the Service:**
+
+    Now, manage the service with the following commands:
+    ```bash
+    # Reload the systemd daemon to read the new service file
+    sudo systemctl daemon-reload
+
+    # Enable the service to start automatically on boot
+    sudo systemctl enable rpi-monitor.service
+
+    # Start the service immediately
+    sudo systemctl start rpi-monitor.service
+    ```
+
+4.  **Check the Status:**
+
+    You can check if the service is running correctly at any time:
+    ```bash
+    sudo systemctl status rpi-monitor.service
+    ```
+    You should see output indicating that the service is "active (running)".
+
 ## Contributing
 
 Contributions are welcome! If you have a suggestion or find a bug, please open an issue to discuss it.
